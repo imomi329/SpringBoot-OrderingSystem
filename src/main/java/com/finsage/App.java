@@ -24,8 +24,8 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
  */
 @SpringBootApplication
 // @ServletComponentScan // 啟動 servlet 掃描。
-@ComponentScan(basePackages = { "com" })
-@MapperScan(basePackages = { "com.finsage.*.mapper" }) // 掃描該包下相應的 class ，主要是 MyBatis 持久化類
+@ComponentScan(basePackages = { "com.finsage" }) // 啟動包目錄
+@MapperScan(basePackages = { "com.finsage.*.*.mapper", "com.finsage.*.mapper" }) // 掃描該包下相應的 class ，主要是 MyBatis 持久化類
 public class App extends WebMvcConfigurerAdapter {
 
 	/**

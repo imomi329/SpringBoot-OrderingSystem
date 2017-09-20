@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.finsage.web.user.mapper.UserMapper">
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id"
+		keyColumn="id" parameterType="com.finsage.web.user.bean.User">
+		INSERT INTO USER(NAME) VALUES (#{name});
+	</insert>
+
+	<update id="update">
+		update user set name = #{name} where id = #{id}
+	</update>
+
+	<delete id="delete">
+		delete from user where id = #{id}
+	</delete>
+
+	<resultMap id="User" type="com.finsage.web.user.bean.User">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+	</resultMap>
+	<select id="selectAll" resultMap="User">
+		select * from user
+	</select>
+	<select id="selectById" resultMap="User">
+		select * from user where id =
+		#{id}
+	</select>
+
+	<!-- 動態標籤-實用 -->
+	<select id="select1" resultMap="User">
+		<!-- select * from user where 1=1 -->
+		<!-- <if test="name != null and name != ''"> -->
+		<!-- and name = #{name} -->
+		<!-- </if> -->
+		<!-- <if test="email != null and email != ''"> -->
+		<!-- and email = #{email} -->
+		<!-- </if> -->
+		select * from user
+		<!-- <trim prefix="where" prefixOverrides="and|or"> -->
+		<where>
+			<if test="name != null and name != ''">
+				and name = #{name}
+			</if>
+			<if test="email != null and email != ''">
+				and email = #{email}
+			</if>
+		</where>
+		<!-- </trim> -->
+	</select>
+
+	<update id="update2">
+		update user
+		<!-- <trim prefix="set" prefixOverrides=","> -->
+		<set>
+			<if test="name != null and name != ''">
+				name = #{name},
+			</if>
+			<if test="email != null and email != ''">
+				email = #{email},
+			</if>
+		</set>
+		<!-- </trim> -->
+		where id = #{id}
+	</update>
+
+	<select id="select7" resultMap="User">
+		select * from user
+		<where>
+			<!-- 優先權，前面中了，後面就不會執行 -->
+			<choose>
+				<when test="name != null and name != ''">
+					and name = #{name}
+				</when>
+				<when test="email != null and email != ''">
+					and email = #{email}
+				</when>
+				<otherwise>
+
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+
+	<select id="select8" resultMap="User">
+		select * from user where id in
+		<foreach collection="list" item="id" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</select>
+
+	<select id="selectRole" resultType="String">
+		select id from member_role where level = 0
+	</select>
+
+
+</mapper>
