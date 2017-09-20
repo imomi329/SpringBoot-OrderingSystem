@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.kfit</groupId>
-	<artifactId>SpringBoot</artifactId>
+	<artifactId>OrderSystem</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>SpringBoot</name>
+	<name>OrderSystem</name>
 	<!-- <url>http://maven.apache.org</url> -->
 	<description>Demo project for Spring Boot</description>
 
@@ -132,7 +132,7 @@
 
 	<!-- 建構結點 -->
 	<build>
-		<finalName>SpringBoot</finalName>
+		<finalName>OrderSystem</finalName>
 		<plugins>
 			<!-- spring-boot-devtools >>> plugin -->
 			<plugin>
@@ -147,7 +147,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<warName>SpringBoot.war</warName>
+					<warName>OrderSystem</warName>
 				</configuration>
 			</plugin>
 		</plugins>
