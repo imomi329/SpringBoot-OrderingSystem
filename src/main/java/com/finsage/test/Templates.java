@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date 2017.09.13
  */
 @Controller
-@RequestMapping("/templates")
-public class TemplatesController {
+@RequestMapping("/")
+public class Templates {
 	
 	/**
 	 * 映射地址是：/templates/hello
@@ -26,6 +26,15 @@ public class TemplatesController {
 	public String hello(Map<String, Object> map) {
 		map.put("name", "Andy");
 		return "hello";
+	}
+	
+	/**
+	 * 映射地址是：/login/login
+	 * @return
+	 */
+	@RequestMapping("/login")
+	public String login() {
+		return "login";
 	}
 
 }
