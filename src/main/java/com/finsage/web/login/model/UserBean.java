@@ -1,63 +1,68 @@
 package com.finsage.web.login.model;
 
+/**
+ * Created by knigh on 2017/9/21.
+ */
 public class UserBean {
-	private int id;
-	private String userId;
-	private String account;
-	private String password;
-	private String status;
 
-	public UserBean() {
-		super();
-	}
+    private Integer id;
 
-	public UserBean(int id, String userId, String account, String password, String status) {
-		super();
-		this.id = id;
-		this.userId = userId;
-		this.account = account;
-		this.password = password;
-		this.status = status;
-	}
+    private String userId;
 
-	public int getId() {
-		return id;
-	}
+    private String account;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    private String password;
 
-	public String getUserId() {
-		return userId;
-	}
+    private Integer status;
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public UserBean() {
+    }
 
-	public String getAccount() {
-		return account;
-	}
+    public UserBean(Integer id, String userId, String account, String password, Integer status) {
+        this.id = id;
+        this.userId = userId;
+        this.account = account;
+        this.password = password;
+        this.status = status;
+    }
 
-	public void setAccount(String account) {
-		this.account = account;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public String getAccount() {
+        return account;
+    }
 
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 }

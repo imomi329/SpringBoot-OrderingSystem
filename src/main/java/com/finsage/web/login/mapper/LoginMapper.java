@@ -10,6 +10,6 @@ import com.finsage.web.login.model.UserBean;
  */
 public interface LoginMapper {
 	
-	public UserBean selectByAccount(String account);
+	public String selectUserByAccount(UserBean userBean);
 
 }

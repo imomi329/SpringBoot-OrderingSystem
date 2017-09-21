@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.finsage.web.login.mapper.LoginMapper">
+
+	<resultMap id="UserBean" type="com.finsage.web.login.model.UserModelBean">
+		<id property="id" column="ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="username" column="ACCOUNT" />
+		<result property="birthday" column="PASSWORD" />
+		<result property="phone" column="STATUS" />
+		<result property="levelName" column="LEVEL_NAME"/>
+		<result property="status" column="STATUS"/>
+	</resultMap>
+
+	<select id="selectUserModel" resultMap="com.finsage.web.login.model.UserModelBean">
+		SELECT i.ID,i.USER_ID,i.USERNAME,i.BIRTHDAY,i.PHONE,r.LEVEL_NAME,i.STATUS
+ 		FROM user_info i
+ 		LEFT JOIN user_role r
+ 		ON i.LEVEL_ID = r.LEVEL
+ 		WHERE USER_ID = #{userId}
+	</select>
+
+</mapper>
