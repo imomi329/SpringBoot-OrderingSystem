@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.finsage.web.demo.bean.Demo;
+import com.finsage.web.sample.model.Demo;
 
 /**
  * 這裡使用 @RestController (等同於 @Controller 和 @ResponseBody)

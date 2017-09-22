@@ -1,8 +1,8 @@
-package com.finsage.web.demo.mapper;
+package com.finsage.web.sample.mapper;
 
 import java.util.List;
 
-import com.finsage.web.demo.bean.Demo;
+import com.finsage.web.sample.model.Demo;
 
 public interface DemoMapper {
 	

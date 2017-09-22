@@ -1,4 +1,4 @@
-package com.finsage.web.demo.service;
+package com.finsage.web.sample.service;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.finsage.web.demo.bean.Demo;
-import com.finsage.web.demo.mapper.DemoMapper;
+import com.finsage.web.sample.mapper.DemoMapper;
+import com.finsage.web.sample.model.Demo;
 
 @Service
 public class DemoService {
