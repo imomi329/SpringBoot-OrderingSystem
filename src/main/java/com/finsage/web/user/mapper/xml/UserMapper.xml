@@ -10,8 +10,28 @@
 		<result property="createDate" column="CREATE_DATE" />
 		<result property="updateDate" column="UPDATE_DATE" />
 	</resultMap>
+	<resultMap id="UserInfo" type="com.finsage.web.user.model.UserInfo">
+		<id property="id" column="ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="roleId" column="USER_ROLE_ID" />
+		<result property="roleName" column="ROLE_NAME" />
+		<result property="name" column="NAME" />
+		<result property="birthday" column="BIRTHDAY" />
+		<result property="idCard" column="ID_CARD" />
+		<result property="phone" column="PHONE" />
+		<result property="address" column="ADDRESS" />
+		<result property="status" column="STATUS" />
+		<result property="createDate" column="CREATE_DATE" />
+		<result property="updateDate" column="UPDATE_DATE" />
+	</resultMap>
 
-	<insert id="save" useGeneratedKeys="true" keyProperty="id"
+	<select id="selectRoleTypeByRoleId" resultType="Integer">
+		SELECT ROLE_TYPE
+		FROM USER_ROLE
+		WHERE ROLE_ID = #{roleId}
+	</select>
+	
+	<insert id="saveUser" useGeneratedKeys="true" keyProperty="id"
 		keyColumn="id" parameterType="com.finsage.web.user.model.User">
 		INSERT INTO 
 		USER(USER_ID, ACCOUNT, PASSWORD) 
@@ -29,8 +49,24 @@
 		SELECT *
 		FROM USER
 		WHERE ACCOUNT = #{account}
+		<if test="status != null">
+			AND STATUS = #{status}
+		</if>
 	</select>
 
+	<insert id="saveUserInfo" useGeneratedKeys="true" keyProperty="id"
+		keyColumn="id" parameterType="com.finsage.web.user.model.UserInfo">
+		INSERT INTO 
+		USER_INFO(USER_ID, USER_ROLE_ID, NAME, BIRTHDAY, ID_CARD, PHONE, ADDRESS) 
+		VALUES (#{userId}, #{userRoleId}, #{name}, #{birthday}, #{idCard}, #{phone}, #{address})
+	</insert>
+	
+	<select id="selectUserInfoByUserId" resultMap="UserInfo">
+		SELECT UI.*, UR.ROLE_NAME
+		FROM USER_INFO UI
+			LEFT JOIN USER_ROLE UR ON UI.USER_ROLE_ID = UR.ID
+ 		WHERE USER_ID = #{userId}
+	</select>
 	<!-- <update id="update"> -->
 	<!-- update user set name = #{name} where id = #{id} -->
 	<!-- </update> -->

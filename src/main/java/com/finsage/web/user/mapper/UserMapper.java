@@ -1,6 +1,7 @@
 package com.finsage.web.user.mapper;
 
 import com.finsage.web.user.model.User;
+import com.finsage.web.user.model.UserInfo;
 
 
 /**
@@ -11,11 +12,18 @@ import com.finsage.web.user.model.User;
  */
 public interface UserMapper {
 	
-	public int save(User user);
+	public int selectRoleTypeByRoleId(int roleId);
+	
+	public int saveUser(User user);
 	
 	public String selectLastAccount();
 	
-	public User selectByAccount(String account);
+	public User selectByAccount(User user);
+	
+	public int saveUserInfo(UserInfo userInfo);
+	
+	public UserInfo selectUserInfoByUserId(String userId);
+	
 
 //	/**
 //	 * 

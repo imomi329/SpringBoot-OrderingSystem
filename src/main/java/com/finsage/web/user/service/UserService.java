@@ -8,9 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.finsage.util.XMLUtil.StringUtil;
 import com.finsage.web.base.BaseModel;
 import com.finsage.web.user.mapper.UserMapper;
 import com.finsage.web.user.model.User;
+import com.finsage.web.user.model.UserInfo;
 
 /**
  * 
@@ -24,53 +26,34 @@ public class UserService {
 	@Autowired
 	private UserMapper userMapper;
 
-	public BaseModel signOn(User user) {
+	/*
+	 * 註冊 0.
+	 */
+	public BaseModel signOn(UserInfo userInfo) {
 		BaseModel bm = new BaseModel();
-		// if (user.getAccount() == null || user.getAccount().equals("")) {
-		// bm.setReturnCode("1");
-		// bm.setReturnMessage("帳號欄位，請勿空白");
-		// bm.setSuccess(false);
-		// return bm;
-		// }
-		// if (user.getPassword() == null || user.getPassword().equals("")) {
-		// bm.setReturnCode("1");
-		// bm.setReturnMessage("密碼欄位，請勿空白");
-		// bm.setSuccess(false);
-		// return bm;
-		// }
+
+		if (StringUtil.isBlank(String.valueOf(userInfo.getRoleId()))) {
+			bm.setReturnCode("1");
+			bm.setReturnMessage("職稱欄位，必填");
+			bm.setSuccess(false);
+			return bm;
+		}
 
 		try {
-			// 亂數建立 USER_ID
-			user.setUserId(UUID.randomUUID().toString().replace("-", ""));
-			// 員工編號：西元年 + 內外場 + 流水號
-			String type = "內場";
-			int typeCode = 0;
-			switch (type) {
-			case "內場":
-				typeCode = 1;
-				break;
-			case "外場":
-				typeCode = 2;
-				break;
-			default:
-				bm.setReturnCode("1");
-				bm.setReturnMessage("部門類別，輸入有誤");
-				bm.setSuccess(false);
-				return bm;
+			// 自動建立，員工編號
+			int roleType = userMapper.selectRoleTypeByRoleId(userInfo.getRoleId());
+			User newUser = createUser(roleType);
+			// 輸入員工資訊
+			userInfo.setUserId(newUser.getUserId());
+			int rs = userMapper.saveUserInfo(userInfo);
+			if (rs > 0) {
+				System.err.println("帳號新建成功");
 			}
-			String newAccount = newAccount(typeCode);
-			user.setAccount(newAccount);
-			user.setPassword("123456");
-			
-			int rs = userMapper.save(user);
-			System.out.println("rs--> " + rs); // rs 對DB新增的資料數量
-			User newUser = new User();
-			newUser = userMapper.selectByAccount(newAccount);
 
 			bm.setData(newUser);
 			bm.setSuccess(true);
 			bm.setReturnCode("0");
-			bm.setReturnMessage("新增: " + rs + " 位使用者成功");
+			bm.setReturnMessage("帳號新建成功");
 		} catch (Exception e) {
 			bm.setReturnCode("1");
 			LoggerFactory.getLogger(this.getClass()).error("{}", e);
@@ -81,7 +64,28 @@ public class UserService {
 	}
 
 	/*
-	 * 員工編號：西元年 + 內外場 + 流水號
+	 * 註冊 1.自動新建帳號
+	 */
+	private User createUser(int roleType) {
+		User user = new User();
+		// 亂數建立 USER_ID
+		user.setUserId(UUID.randomUUID().toString().replace("-", ""));
+		// 員工編號：西元年 + 內外場 + 流水號
+		String newAccount = newAccount(roleType);
+		user.setAccount(newAccount);
+		user.setPassword("123456");
+
+		int rs = userMapper.saveUser(user);
+//		System.out.println("rs--> " + rs); // rs 對DB新增的資料數量
+		User newUser = new User();
+		if (rs > 0) {
+			newUser = userMapper.selectByAccount(user);
+		}
+		return newUser;
+	}
+
+	/*
+	 * 註冊 2.員工編號：西元年 + 內外場 + 流水號
 	 */
 	private String newAccount(int typeCode) {
 		String lastAccount = userMapper.selectLastAccount();
@@ -91,4 +95,71 @@ public class UserService {
 		return year + newNo;
 	}
 
+	/*
+	 * 登錄 0.
+	 */
+	public BaseModel login(User user) {
+		BaseModel bm = new BaseModel();
+		if (StringUtil.isBlank(user.getAccount())) {
+			bm.setReturnCode("1");
+			bm.setReturnMessage("帳號欄位，必填");
+			bm.setSuccess(false);
+			return bm;
+		}
+		if (StringUtil.isBlank(user.getPassword())) {
+			bm.setReturnCode("1");
+			bm.setReturnMessage("密碼欄位，必填");
+			bm.setSuccess(false);
+			return bm;
+		}
+		try {
+			user.setStatus("1");
+			User realUser = userMapper.selectByAccount(user);
+			if (!realUser.getPassword().equals(user.getPassword())) {
+				bm.setReturnCode("1");
+				bm.setReturnMessage("密碼錯誤，請重新輸入");
+				bm.setSuccess(false);
+				return bm;
+			}
+			UserInfo userInfo = userMapper.selectUserInfoByUserId(realUser.getUserId());
+			userInfo.setAccount(user.getAccount());
+			
+			bm.setData(userInfo);
+			bm.setReturnCode("0");
+			bm.setReturnMessage("登錄成功");
+			bm.setSuccess(true);
+		} catch (Exception e) {
+			bm.setReturnCode("1");
+			LoggerFactory.getLogger(this.getClass()).error("{}", e);
+			bm.setReturnMessage("提取資料失敗 : " + e.toString());
+			bm.setSuccess(false);
+		}
+		return bm;
+	}
+	
+	public BaseModel findPassword(User user) {
+		BaseModel bm = new BaseModel();
+		if (StringUtil.isBlank(user.getAccount())) {
+			bm.setReturnCode("1");
+			bm.setReturnMessage("帳號欄位，必填");
+			bm.setSuccess(false);
+			return bm;
+		}
+		
+		try {
+			
+			bm.setData("");
+			bm.setReturnCode("0");
+			bm.setReturnMessage("登錄成功");
+			bm.setSuccess(true);
+		} catch (Exception e) {
+			bm.setReturnCode("1");
+			LoggerFactory.getLogger(this.getClass()).error("{}", e);
+			bm.setReturnMessage("提取資料失敗 : " + e.toString());
+			bm.setSuccess(false);
+		}
+		
+		
+		return bm;
+	}
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.finsage.web.base.BaseModel;
 import com.finsage.web.user.model.User;
+import com.finsage.web.user.model.UserInfo;
 import com.finsage.web.user.service.UserService;
 
 /**
@@ -27,16 +28,24 @@ public class UserController {
 	 * 註冊
 	 */
 	@GetMapping("/SignOn")
-	public BaseModel signOn(User user) {
-		return userService.signOn(user);
+	public BaseModel signOn(UserInfo userInfo) {
+		return userService.signOn(userInfo);
 	}
-
-//	@GetMapping("/save")
-//	public User save(User user) {
-//		System.out.println("===================");
-//		Integer rs = userService.save(user);
-//		System.out.println("rs--> " + rs);
-//		return user;
-//	}
+	
+	/*
+	 * 登錄
+	 */
+	@GetMapping("/Login")
+	public BaseModel Login(User user) {
+		return userService.login(user);
+	}
+	
+	/*
+	 * 忘記密碼
+	 */
+	@GetMapping("/FindPassword")
+	public BaseModel findPassword(User user) {
+		return userService.findPassword(user);
+	}
 
 }
