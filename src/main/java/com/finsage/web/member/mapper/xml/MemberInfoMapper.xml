@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.finsage.web.member.mapper.MemberInfoMapper">
+
+	<resultMap id="MemberInfo" type="com.finsage.web.member.model.Member">
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="userName" column="USERNAME" />
+		<result property="birthday" column="BIRTHDAY" />
+		<result property="phone" column="PHONE" />
+		<result property="email" column="EMAIL" />
+		<result property="levelId" column="LEVEL_ID" />
+		<result property="status" column="STATUS" />
+		<result property="costCount" column="COST_COUNT" />
+		<result property="costTotal" column="COST_TOTAL" />
+		<result property="lastVisitDate" column="LAST_VISIT_DATE" />
+		<result property="createDate" column="CREATE_DATE" />
+		<result property="updateDate" column="UPDATE_DATE" />
+	</resultMap>
+
+	<select id="selectAccount" resultMap="String">
+		SELECT *
+		FROM member_info
+		WHERE ACCOUNT = #{account}
+	</select>
+
+	<insert id="creatAccount">
+		INSERT INTO
+		member_info
+		VALUES
+		(#{memberId},#{userName},#{birthday},#{phone},#{email},#{levelId},1,0,0,NOW(),NOW(),NOW())
+	</insert>
+	
+	<select id="getMemberInfo" resultMap="MemberInfo">
+		SELECT *
+		FROM 
+		member_info
+		WHERE MEMBER_ID = #{memberId}
+	</select>
+	
+	<update id="updateMemberStatus">
+		UPDATE member_info
+		SET LEVEL_ID = #{levelId}, COST_COUNT=#{costCount},COST_TOTAL=#{costTotal},LAST_VISIT_DATE=#{lastVisitDate},UPDATE_DATE=#{updateDate}
+		WHERE MEMBER_ID=#{memberId}
+	</update>
+
+</mapper>

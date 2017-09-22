@@ -12,7 +12,7 @@
 		<result property="status" column="STATUS"/>
 	</resultMap>
 
-	<select id="selectUserModel" resultMap="com.finsage.web.login.model.UserModelBean">
+	<select id="selectUserModel" resultMap="UserBean">
 		SELECT i.ID,i.USER_ID,i.USERNAME,i.BIRTHDAY,i.PHONE,r.LEVEL_NAME,i.STATUS
  		FROM user_info i
  		LEFT JOIN user_role r
