@@ -44,8 +44,8 @@ public class UserController {
 	 * 忘記密碼
 	 */
 	@GetMapping("/FindPassword")
-	public BaseModel findPassword(User user) {
-		return userService.findPassword(user);
+	public BaseModel findPassword(String idCard) {
+		return userService.findPassword(idCard);
 	}
 
 }

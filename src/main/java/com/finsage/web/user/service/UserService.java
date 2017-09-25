@@ -46,7 +46,7 @@ public class UserService {
 			userInfo.setUserId(newUser.getUserId());
 			int rs = userMapper.saveUserInfo(userInfo);
 			if (rs > 0) {
-				System.out.println("帳號新建成功");
+				System.out.println("帳號： " + newUser.getAccount() + " 新建成功");
 			}
 
 			bm.setData(newUser);
@@ -111,6 +111,7 @@ public class UserService {
 			bm.setSuccess(false);
 			return bm;
 		}
+		
 		try {
 			user.setStatus("1");
 			User realUser = userMapper.selectByAccount(user);
@@ -136,20 +137,24 @@ public class UserService {
 		return bm;
 	}
 	
-	public BaseModel findPassword(User user) {
+	/*
+	 * 忘記密碼
+	 */
+	public BaseModel findPassword(String idCard) {
 		BaseModel bm = new BaseModel();
-		if (StringUtil.isBlank(user.getAccount())) {
+		if (StringUtil.isBlank(idCard)) {
 			bm.setReturnCode("1");
-			bm.setReturnMessage("帳號欄位，必填");
+			bm.setReturnMessage("身分證欄位，必填");
 			bm.setSuccess(false);
 			return bm;
 		}
 		
 		try {
+			userMapper.updateUserPasswordByIdCard(idCard);
 			
-			bm.setData("");
+			bm.setData("密碼已修正，請儘速修改新密碼");
 			bm.setReturnCode("0");
-			bm.setReturnMessage("登錄成功");
+			bm.setReturnMessage("忘記密碼");
 			bm.setSuccess(true);
 		} catch (Exception e) {
 			bm.setReturnCode("1");
