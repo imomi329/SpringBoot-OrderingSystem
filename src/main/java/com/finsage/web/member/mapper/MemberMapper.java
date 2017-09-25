@@ -8,4 +8,6 @@ import com.finsage.web.member.model.Member;
 public interface MemberMapper {
 
     public Integer createAccount(Member member);
+
+    public String selectAccount(String account);
 }

@@ -7,8 +7,6 @@ import com.finsage.web.member.model.Member;
  */
 public interface MemberInfoMapper {
 
-    public String selectAccount(String account);
-
     public Integer creatAccount(Member member);
 
     public Member getMemberInfo(String memberId);

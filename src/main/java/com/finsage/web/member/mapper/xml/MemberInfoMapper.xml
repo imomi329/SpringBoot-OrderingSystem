@@ -17,12 +17,6 @@
 		<result property="updateDate" column="UPDATE_DATE" />
 	</resultMap>
 
-	<select id="selectAccount" resultType="String">
-		SELECT ACCOUNT
-		FROM member_info
-		WHERE ACCOUNT = #{account}
-	</select>
-
 	<insert id="creatAccount">
 		INSERT INTO
 		member_info

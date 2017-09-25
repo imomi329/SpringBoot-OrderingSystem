@@ -21,23 +21,17 @@ public class MemberController {
 
     @GetMapping("/saveAccount")
     public BaseModel saveAccount(Member mb){
-        memberService = new MemberService();
-        BaseModel bm = memberService.saveAccount(mb);
-        return bm;
+        return memberService.saveAccount(mb);
     }
 
     @GetMapping("/getMemberInfo")
     public BaseModel getMemberInfo(Member mb){
-        memberService = new MemberService();
-        BaseModel bm = memberService.getMemberInfo(mb.getMemberId());
-        return bm;
+        return memberService.getMemberInfo(mb.getMemberId());
     }
 
     @GetMapping("/changeMemberCostStatus")
     public BaseModel changeMemberCostStatus(Member mb){
-        memberService = new MemberService();
-        BaseModel bm = memberService.changeMemberCostStatus(mb.getMemberId(),1234);
-        return bm;
+        return memberService.changeMemberCostStatus(mb.getMemberId(),1234);
     }
 
 }

@@ -41,6 +41,10 @@ public class Message {
 
     public final static String returnMessage1007 = "電話格式有誤";
 
+    public final static String returnCode1008 = "1008";
+
+    public final static String returnMessage1008 = "帳號不得為空";
+
     public final static String returnCode2000 = "2000";
 
     public final static String returnMessage2000 = "新增帳號失敗";
@@ -147,5 +151,13 @@ public class Message {
 
     public static String getReturnMessage3001() {
         return returnMessage3001;
+    }
+
+    public static String getReturnCode1008() {
+        return returnCode1008;
+    }
+
+    public static String getReturnMessage1008() {
+        return returnMessage1008;
     }
 }

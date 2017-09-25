@@ -28,6 +28,12 @@ public class MemberService {
     public BaseModel saveAccount(Member member){
         // 驗證帳號是否重複
         BaseModel bm = new BaseModel();
+        if (member.getAccount() == null){
+            bm.setSuccess(false);
+            bm.setReturnCode(Message.returnCode1008);
+            bm.setReturnMessage(Message.returnMessage1008);
+            return bm;
+        }
         if(checkAccount(member.getAccount()) == true){
             bm.setSuccess(false);
             bm.setReturnCode(Message.returnCode1001);
@@ -134,7 +140,7 @@ public class MemberService {
     }
 
     private boolean checkAccount(String account){
-        String memberAccount = memberInfoMapper.selectAccount(account);
+        String memberAccount = memberMapper.selectAccount(account);
         return StringUtil.isBlank(memberAccount);
     }
 

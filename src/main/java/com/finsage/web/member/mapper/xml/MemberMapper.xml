@@ -15,4 +15,11 @@
 		member
 		VALUES (#{memberId},#{account},#{password},NOW(),NOW())
 	</insert>
+
+	<select id="selectAccount" resultType="String">
+		SELECT ACCOUNT
+		FROM member
+		WHERE ACCOUNT = #{account}
+	</select>
+	
 </mapper>
