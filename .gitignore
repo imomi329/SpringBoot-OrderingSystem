@@ -1,4 +1,5 @@
 /target/
+/target/classes/application.properties
 .idea/.name
 .idea/artifacts/OrderSystem_war.xml
 .idea/artifacts/OrderSystem_war_exploded.xml
