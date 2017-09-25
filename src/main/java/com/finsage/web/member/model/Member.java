@@ -7,6 +7,8 @@ import java.util.Date;
  */
 public class Member {
 
+    private String id;
+
     private String account;
 
     private String password;
@@ -17,7 +19,7 @@ public class Member {
 
     private Date birthday;
 
-    private Integer phone;
+    private String phone;
 
     private String email;
 
@@ -67,11 +69,11 @@ public class Member {
         this.birthday = birthday;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -145,5 +147,13 @@ public class Member {
 
     public void setMemberId(String memberId) {
         this.memberId = memberId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

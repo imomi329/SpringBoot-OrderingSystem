@@ -31,7 +31,7 @@ public class MemberController {
 
     @GetMapping("/changeMemberCostStatus")
     public BaseModel changeMemberCostStatus(Member mb){
-        return memberService.changeMemberCostStatus(mb.getMemberId(),1234);
+        return memberService.changeMemberCostStatus(mb.getMemberId(),5000);
     }
 
 }

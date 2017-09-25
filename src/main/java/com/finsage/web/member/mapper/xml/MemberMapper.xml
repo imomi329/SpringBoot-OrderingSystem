@@ -3,6 +3,7 @@
 <mapper namespace="com.finsage.web.member.mapper.MemberMapper">
 
 	<resultMap id="Member" type="com.finsage.web.member.model.Member">
+		<id property="id" column="Id"/>
 		<result property="memberId" column="MEMBER_ID" />
 		<result property="account" column="ACCOUNT" />
 		<result property="password" column="PASSWORD" />
@@ -12,14 +13,14 @@
 
 	<insert id="createAccount">
 		INSERT INTO
-		member
+		member (MEMBER_ID,ACCOUNT,PASSWORD,CREATE_DATE,UPDATE_DATE)
 		VALUES (#{memberId},#{account},#{password},NOW(),NOW())
 	</insert>
 
 	<select id="selectAccount" resultType="String">
 		SELECT ACCOUNT
 		FROM member
-		WHERE ACCOUNT = #{account}
+		WHERE ACCOUNT = #{account} AND STATUS = 1
 	</select>
 	
 </mapper>

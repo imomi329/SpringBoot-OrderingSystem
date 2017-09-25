@@ -3,6 +3,7 @@
 <mapper namespace="com.finsage.web.member.mapper.MemberInfoMapper">
 
 	<resultMap id="MemberInfo" type="com.finsage.web.member.model.Member">
+		<id property="id" column="ID"/>
 		<result property="memberId" column="MEMBER_ID" />
 		<result property="userName" column="USERNAME" />
 		<result property="birthday" column="BIRTHDAY" />
@@ -19,16 +20,16 @@
 
 	<insert id="creatAccount">
 		INSERT INTO
-		member_info
+		member_info (MEMBER_ID,USERNAME,BIRTHDAY,PHONE,EMAIL,LEVEL_ID,STATUS,COST_COUNT,COST_TOTAL,LAST_VISIT_DATE,CREATE_DATE,UPDATE_DATE)
 		VALUES
-		(#{memberId},#{userName},#{birthday},#{phone},#{email},#{levelId},1,0,0,NOW(),NOW(),NOW())
+		(#{memberId},#{userName},#{birthday},#{phone},#{email},0,1,0,0,NOW(),NOW(),NOW())
 	</insert>
 
 	<select id="getMemberInfo" resultMap="MemberInfo">
 		SELECT *
 		FROM 
 		member_info
-		WHERE MEMBER_ID = #{memberId}
+		WHERE MEMBER_ID = #{memberId} AND STATUS = 1
 	</select>
 
 	<update id="updateMemberStatus">

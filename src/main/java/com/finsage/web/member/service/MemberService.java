@@ -34,14 +34,14 @@ public class MemberService {
             bm.setReturnMessage(Message.returnMessage1008);
             return bm;
         }
-        if(checkAccount(member.getAccount()) == true){
+        if(!checkAccount(member.getAccount())){
             bm.setSuccess(false);
             bm.setReturnCode(Message.returnCode1001);
             bm.setReturnMessage(Message.returnMessage1001);
             return bm;
         } else {
             // 驗證密碼
-            if (checkPassword(member.getPassword()) == false){
+            if (member.getPassword() == null || !checkPassword(member.getPassword())){
                 bm.setSuccess(false);
                 bm.setReturnCode(Message.returnCode1002);
                 bm.setReturnMessage(Message.returnMessage1002);
@@ -59,12 +59,6 @@ public class MemberService {
                 bm.setReturnMessage(Message.returnMessage1004);
                 return bm;
             }
-            if (StringUtil.isBlank(member.getLevelId().toString())){
-                bm.setSuccess(false);
-                bm.setReturnCode(Message.returnCode1005);
-                bm.setReturnMessage(Message.returnMessage1005);
-                return bm;
-            }
             if(!StringUtil.isBlank(member.getEmail())){
                 if (!checkEmail(member.getEmail())){
                     bm.setSuccess(false);
@@ -73,7 +67,7 @@ public class MemberService {
                     return bm;
                 }
             }
-            if(!StringUtil.isBlank(member.getPhone().toString())){
+            if(!StringUtil.isBlank(member.getPhone())){
                 if (!checkPhone(member.getPhone())){
                     bm.setSuccess(false);
                     bm.setReturnCode(Message.returnCode1007);
@@ -101,6 +95,12 @@ public class MemberService {
     public BaseModel getMemberInfo(String memberId){
         Member member = memberInfoMapper.getMemberInfo(memberId);
         BaseModel bm = new BaseModel();
+        if (member == null){
+            bm.setSuccess(false);
+            bm.setReturnCode(Message.returnCode1009);
+            bm.setReturnMessage(Message.returnMessage1009);
+            return bm;
+        }
         bm.setSuccess(true);
         bm.setReturnCode(Message.returnCode0000);
         bm.setReturnMessage(Message.returnMessage0000);
@@ -156,11 +156,11 @@ public class MemberService {
         }
     }
 
-    private boolean checkPhone(Integer phone){
-        if(phone.toString().length() != 10){
+    private boolean checkPhone(String phone){
+        if(phone.length() != 10){
             return false;
         } else {
-            return phone.toString().substring(0,2).equals("09") ? true : false;
+            return phone.substring(0,2).equals("09") ? true : false;
         }
     }
 

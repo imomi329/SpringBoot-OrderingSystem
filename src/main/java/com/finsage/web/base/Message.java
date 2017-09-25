@@ -29,10 +29,6 @@ public class Message {
 
     public final static String returnMessage1004 = "生日不得為空";
 
-    public final static String returnCode1005 = "1005";
-
-    public final static String returnMessage1005 = "職稱不得為空";
-
     public final static String returnCode1006 = "1006";
 
     public final static String returnMessage1006 = "信箱格式有誤";
@@ -44,6 +40,10 @@ public class Message {
     public final static String returnCode1008 = "1008";
 
     public final static String returnMessage1008 = "帳號不得為空";
+
+    public final static String returnCode1009 = "1009";
+
+    public final static String returnMessage1009 = "查無此帳號";
 
     public final static String returnCode2000 = "2000";
 
@@ -105,14 +105,6 @@ public class Message {
         return returnMessage1004;
     }
 
-    public static String getReturnCode1005() {
-        return returnCode1005;
-    }
-
-    public static String getReturnMessage1005() {
-        return returnMessage1005;
-    }
-
     public static String getReturnCode2000() {
         return returnCode2000;
     }
@@ -159,5 +151,13 @@ public class Message {
 
     public static String getReturnMessage1008() {
         return returnMessage1008;
+    }
+
+    public static String getReturnCode1009() {
+        return returnCode1009;
+    }
+
+    public static String getReturnMessage1009() {
+        return returnMessage1009;
     }
 }
