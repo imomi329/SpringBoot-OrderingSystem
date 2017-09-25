@@ -1,4 +1,4 @@
-package com.finsage.test;
+package com.finsage.util.templates;
 
 import java.util.Map;
 
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date 2017.09.13
  */
 @Controller
-@RequestMapping("/")
-public class Templates {
+@RequestMapping("/Web")
+public class TemplatesTransform {
 	
 	/**
 	 * 映射地址是：/templates/hello
@@ -27,14 +27,16 @@ public class Templates {
 		map.put("name", "Andy");
 		return "hello";
 	}
-	
+
 	/**
-	 * 映射地址是：/login/login
+	 * 可映射所有 /templates/XXXXX.html
+	 * @param html
 	 * @return
 	 */
-	@RequestMapping("/login")
-	public String login() {
-		return "login";
+	@RequestMapping("/Html")
+	public String htmlTransFrom(String html) {
+		return html;
 	}
+	
 
 }
