@@ -10,12 +10,12 @@ import java.util.Date;
  */
 public class UserInfo extends User {
 
-	private int id; // 主鍵
+	private Integer id; // 主鍵
 	// private String userId; // 使用者ID
-	private int roleId; // 職稱代號
+	private Integer userRoleId; // 職稱代號
 	private String roleName; // 職稱(USER_ROLE.ROLE_NAME)
 	private String name; // 姓名
-	private Date brithday; // 生日
+	private Date birthday; // 生日
 	private String idCard; // 身分證
 	private String phone; // 電話
 	private String address; // 地址
@@ -23,20 +23,20 @@ public class UserInfo extends User {
 	private Date createDate; // 建立時間
 	private Date updateDate; // 修改時間
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getRoleId() {
-		return roleId;
+	public Integer getUserRoleId() {
+		return userRoleId;
 	}
 
-	public void setRoleId(int roleId) {
-		this.roleId = roleId;
+	public void setUserRoleId(Integer userRoleId) {
+		this.userRoleId = userRoleId;
 	}
 
 	public String getRoleName() {
@@ -55,12 +55,12 @@ public class UserInfo extends User {
 		this.name = name;
 	}
 
-	public Date getBrithday() {
-		return brithday;
+	public Date getBirthday() {
+		return birthday;
 	}
 
-	public void setBrithday(Date brithday) {
-		this.brithday = brithday;
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 
 	public String getIdCard() {

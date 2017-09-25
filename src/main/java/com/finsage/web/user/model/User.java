@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class User {
 
-	private int id; // 主鍵
+	private Integer id; // 主鍵
 	private String userId; // USER_ID
 	private String account; // 帳號
 	private String password; // 密碼
@@ -19,16 +19,16 @@ public class User {
 	private Date updateDate; // 修改時間
 	// private SexEnum sexEnum; // 性別
 
-	public int getId() {
+	public String getUserId() {
+		return userId;
+	}
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getUserId() {
-		return userId;
 	}
 
 	public void setUserId(String userId) {

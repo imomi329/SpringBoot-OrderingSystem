@@ -31,8 +31,7 @@ public class UserService {
 	 */
 	public BaseModel signOn(UserInfo userInfo) {
 		BaseModel bm = new BaseModel();
-
-		if (StringUtil.isBlank(String.valueOf(userInfo.getRoleId()))) {
+		if (StringUtil.isBlank(userInfo.getUserRoleId())) {
 			bm.setReturnCode("1");
 			bm.setReturnMessage("職稱欄位，必填");
 			bm.setSuccess(false);
@@ -41,13 +40,13 @@ public class UserService {
 
 		try {
 			// 自動建立，員工編號
-			int roleType = userMapper.selectRoleTypeByRoleId(userInfo.getRoleId());
+			int roleType = userMapper.selectRoleTypeByRoleId(userInfo.getUserRoleId());
 			User newUser = createUser(roleType);
 			// 輸入員工資訊
 			userInfo.setUserId(newUser.getUserId());
 			int rs = userMapper.saveUserInfo(userInfo);
 			if (rs > 0) {
-				System.err.println("帳號新建成功");
+				System.out.println("帳號新建成功");
 			}
 
 			bm.setData(newUser);

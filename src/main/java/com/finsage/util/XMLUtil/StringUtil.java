@@ -15,4 +15,15 @@ public class StringUtil {
                 return false;
         }
     }
+    
+    public static boolean isBlank(Integer parameter){
+        if (parameter == null)
+            return true;
+        else {
+            if (parameter.equals(0))
+                return true;
+            else
+                return false;
+        }
+    }
 }

@@ -7,11 +7,12 @@
 <body>
 使用者登錄頁面
 <form action="/OrderingSystem/User/Login" method="post">
-	account:<input type="text" name="account"/><br/>
-	password:<input type="password" name="password"/><br/>
+	account:<input type="text" name="account" value="std18"/><br/>
+	password:<input type="password" name="password" value="123456"/><br/>
 	<input type="submit" value="登录"/>
 </form>
-<form action="/OrderingSystem/SignOn" method="post">
+<form action="/OrderingSystem/Web/Html" method="post">
+		<input type="hidden" name="html" value="signOn"/>
 	<input type="submit" value="註冊"/>
 </form>
 </body>

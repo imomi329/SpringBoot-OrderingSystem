@@ -13,7 +13,7 @@
 	<resultMap id="UserInfo" type="com.finsage.web.user.model.UserInfo">
 		<id property="id" column="ID" />
 		<result property="userId" column="USER_ID" />
-		<result property="roleId" column="USER_ROLE_ID" />
+		<result property="userRoleId" column="USER_ROLE_ID" />
 		<result property="roleName" column="ROLE_NAME" />
 		<result property="name" column="NAME" />
 		<result property="birthday" column="BIRTHDAY" />
@@ -28,7 +28,7 @@
 	<select id="selectRoleTypeByRoleId" resultType="Integer">
 		SELECT ROLE_TYPE
 		FROM USER_ROLE
-		WHERE ROLE_ID = #{roleId}
+		WHERE ID = #{roleId}
 	</select>
 	
 	<insert id="saveUser" useGeneratedKeys="true" keyProperty="id"

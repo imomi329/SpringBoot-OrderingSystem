@@ -37,6 +37,5 @@ public class TemplatesTransform {
 	public String htmlTransFrom(String html) {
 		return html;
 	}
-	
 
 }
