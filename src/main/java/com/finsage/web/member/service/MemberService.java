@@ -7,6 +7,7 @@ import com.finsage.web.member.mapper.MemberInfoMapper;
 import com.finsage.web.member.mapper.MemberMapper;
 import com.finsage.web.member.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.UUID;
@@ -14,6 +15,7 @@ import java.util.UUID;
 /**
  * Created by knigh on 2017/9/22.
  */
+@Service
 public class MemberService {
 
     @Autowired
@@ -89,6 +91,17 @@ public class MemberService {
         }
     }
 
+
+    public BaseModel getMemberInfo(String memberId){
+        Member member = memberInfoMapper.getMemberInfo(memberId);
+        BaseModel bm = new BaseModel();
+        bm.setSuccess(true);
+        bm.setReturnCode(Message.returnCode0000);
+        bm.setReturnMessage(Message.returnMessage0000);
+        bm.setData(member);
+        return bm;
+    }
+
     // 結帳修改狀態
     public BaseModel changeMemberCostStatus(String memberId, Integer cost){
         BaseModel bm = new BaseModel();
@@ -98,15 +111,16 @@ public class MemberService {
             bm.setReturnMessage(Message.returnMessage3001);
             return bm;
         }
-        Member member = memberInfoMapper.getMemberInfo(memberId);
+        Member member = (Member) getMemberInfo(memberId).getData();
         if (member == null){
             bm.setSuccess(false);
             bm.setReturnCode(Message.returnCode3000);
             bm.setReturnMessage(Message.returnMessage3000);
             return bm;
         } else {
-            member.setCostCount(member.getCostCount() + 1);
-            Integer costTotal = member.getCostTotal() + cost;
+            Integer costCount = member.getCostCount();
+            member.setCostCount((costCount == null || cost == 0 ? 0:member.getCostCount()) + 1);
+            Integer costTotal = (member.getCostTotal() == null || member.getCostTotal() == 0 ? 0 : member.getCostTotal()) + cost;
             member.setLevelId(changeMemberLevel(costTotal));
             member.setCostTotal(costTotal);
             member.setLastVisitDate(new Date());

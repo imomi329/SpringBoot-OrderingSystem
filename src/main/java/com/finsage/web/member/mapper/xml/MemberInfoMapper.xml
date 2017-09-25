@@ -18,7 +18,7 @@
 	</resultMap>
 
 	<select id="selectAccount" resultMap="String">
-		SELECT *
+		SELECT ACCOUNT
 		FROM member_info
 		WHERE ACCOUNT = #{account}
 	</select>
@@ -29,14 +29,14 @@
 		VALUES
 		(#{memberId},#{userName},#{birthday},#{phone},#{email},#{levelId},1,0,0,NOW(),NOW(),NOW())
 	</insert>
-	
+
 	<select id="getMemberInfo" resultMap="MemberInfo">
 		SELECT *
 		FROM 
 		member_info
 		WHERE MEMBER_ID = #{memberId}
 	</select>
-	
+
 	<update id="updateMemberStatus">
 		UPDATE member_info
 		SET LEVEL_ID = #{levelId}, COST_COUNT=#{costCount},COST_TOTAL=#{costTotal},LAST_VISIT_DATE=#{lastVisitDate},UPDATE_DATE=#{updateDate}
