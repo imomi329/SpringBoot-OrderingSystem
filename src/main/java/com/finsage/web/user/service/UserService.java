@@ -1,18 +1,20 @@
 package com.finsage.web.user.service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.UUID;
-
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.finsage.util.XMLUtil.StringUtil;
 import com.finsage.web.base.BaseModel;
 import com.finsage.web.user.mapper.UserMapper;
 import com.finsage.web.user.model.User;
 import com.finsage.web.user.model.UserInfo;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * 
@@ -113,18 +115,21 @@ public class UserService {
 		}
 		
 		try {
-			user.setStatus("1");
-			User realUser = userMapper.selectByAccount(user);
-			if (!realUser.getPassword().equals(user.getPassword())) {
-				bm.setReturnCode("1");
-				bm.setReturnMessage("密碼錯誤，請重新輸入");
-				bm.setSuccess(false);
-				return bm;
+			Subject subject = SecurityUtils.getSubject();
+			if (!subject.isAuthenticated()) {
+				UsernamePasswordToken upt = new UsernamePasswordToken(user.getAccount(), user.getPassword());
+				try {
+					subject.login(upt);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					bm.setReturnCode("0");
+					bm.setReturnMessage("帳號或密碼錯誤");
+					bm.setSuccess(true);
+					return bm;
+				}
 			}
-			UserInfo userInfo = userMapper.selectUserInfoByUserId(realUser.getUserId());
-			userInfo.setAccount(user.getAccount());
-			
-			bm.setData(userInfo);
+
+			bm.setData(subject.getPrincipal());
 			bm.setReturnCode("0");
 			bm.setReturnMessage("登錄成功");
 			bm.setSuccess(true);

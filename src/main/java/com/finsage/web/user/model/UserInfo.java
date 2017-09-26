@@ -111,4 +111,9 @@ public class UserInfo extends User {
 		this.updateDate = updateDate;
 	}
 
+	@Override
+	public String toString(){
+		return getAccount();
+	}
+
 }

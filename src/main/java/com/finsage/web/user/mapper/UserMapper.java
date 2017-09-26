@@ -25,6 +25,8 @@ public interface UserMapper {
 
 	public int updateUserPasswordByIdCard(String idCard);
 
+	UserInfo queryUserInfoByusername(String username);
+
 	// /**
 	// *
 	// * @param user
